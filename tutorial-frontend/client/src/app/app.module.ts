@@ -11,6 +11,8 @@ import { CategoryModule } from './category/category.module';
 import { AuthorModule } from './author/author.module';
 import { GameModule } from './game/game.module';
 
+import { ClientModule } from './client/client.module';
+
 
 
 
@@ -25,6 +27,7 @@ import { GameModule } from './game/game.module';
     CategoryModule,
     AuthorModule,
     GameModule,
+    ClientModule,
     BrowserAnimationsModule
   ],
   providers: [],
