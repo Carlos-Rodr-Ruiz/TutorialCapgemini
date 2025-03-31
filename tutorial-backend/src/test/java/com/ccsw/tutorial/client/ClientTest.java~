@@ -10,8 +10,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class ClientTest {
@@ -41,19 +41,19 @@ public class ClientTest {
     }
 
     @Test
-    void shouldThrowWhenClientNameAlreadyExists() throws Exception {
+    void shouldThrowWhenClientNameAlreadyExists() {
+        // given
         ClientDto dto = new ClientDto();
         dto.setId(null);
         dto.setName("Cliente Duplicado");
 
-        Client existingClient = new Client();
-        existingClient.setId(99L); // ⚠️ IMPORTANTE: poner un ID para evitar el null
+        when(clientRepository.findByName("Cliente Duplicado")).thenReturn(new Client());
 
-        when(clientRepository.findByName("Cliente Duplicado")).thenReturn(existingClient);
-
+        // when
         Exception exception = assertThrows(Exception.class, () -> clientService.save(dto));
 
-        assertTrue(exception.getMessage().contains("ya existe"));
+        // then
+        assertThat(exception).isInstanceOf(Exception.class).hasMessageContaining("ya existe");
     }
 
     @Test

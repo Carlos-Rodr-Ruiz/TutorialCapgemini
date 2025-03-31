@@ -31,9 +31,9 @@ public class ClientController {
     }
 
     @Operation(summary = "Save or update", description = "Method that saves or updates a client")
-    @PutMapping("/{id}")
-    public void save(@PathVariable Long id, @RequestBody ClientDto dto) throws Exception {
-        this.clientService.save(id, dto);
+    @PutMapping
+    public void save(@RequestBody ClientDto dto) throws Exception {
+        this.clientService.save(dto);
     }
 
     @Operation(summary = "Delete", description = "Method that deletes a client by ID")
@@ -41,4 +41,5 @@ public class ClientController {
     public void delete(@PathVariable Long id) throws Exception {
         this.clientService.delete(id);
     }
+
 }

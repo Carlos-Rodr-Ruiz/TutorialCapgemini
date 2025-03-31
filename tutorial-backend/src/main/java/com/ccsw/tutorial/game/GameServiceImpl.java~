@@ -6,6 +6,7 @@ import com.ccsw.tutorial.common.criteria.SearchCriteria;
 import com.ccsw.tutorial.game.model.Game;
 import com.ccsw.tutorial.game.model.GameDto;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,7 @@ public class GameServiceImpl implements GameService {
         // Guardar el juego
         this.gameRepository.save(game);
     }
+
 
     @Override
     public Game get(Long gameId) {

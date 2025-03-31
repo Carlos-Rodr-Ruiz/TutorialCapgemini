@@ -1,0 +1,118 @@
+package com.ccsw.tutorial.loan;
+
+import com.ccsw.tutorial.client.ClientService;
+import com.ccsw.tutorial.common.pagination.PageableRequest;
+import com.ccsw.tutorial.game.GameService;
+import com.ccsw.tutorial.loan.model.Loan;
+import com.ccsw.tutorial.loan.model.LoanDto;
+import com.ccsw.tutorial.loan.model.LoanSearchDto;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class LoanTest {
+
+    @Mock
+    LoanRepository loanRepository;
+
+    @Mock
+    GameService gameService;
+
+    @Mock
+    ClientService clientService;
+
+    @InjectMocks
+    LoanServiceImpl loanService;
+
+    @Test
+    void testFindLoansWithFilters() {
+        LoanSearchDto dto = new LoanSearchDto();
+        dto.setGameId(1L);
+        dto.setClientId(1L);
+        dto.setDate(LocalDate.now());
+
+        when(loanRepository.findAll(any(), any(Pageable.class))).thenReturn(new PageImpl<>(List.of(new Loan())));
+
+        loanService.find(new PageableRequest(), dto);
+        verify(loanRepository).findAll(any(), any(Pageable.class));
+    }
+
+    @Test
+    void shouldThrowExceptionIfEndDateBeforeStartDate() {
+        LoanDto dto = new LoanDto();
+        dto.setStartDate(LocalDate.of(2024, 3, 30));
+        dto.setEndDate(LocalDate.of(2024, 3, 25));
+        dto.setClientId(1L);
+        dto.setGameId(1L);
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            loanService.save(dto);
+        });
+
+        assert (exception.getMessage().toLowerCase().contains("fin no puede ser anterior"));
+    }
+
+    @Test
+    void shouldThrowExceptionIfLoanPeriodExceeds14Days() {
+        LoanDto dto = new LoanDto();
+        dto.setStartDate(LocalDate.of(2024, 3, 1));
+        dto.setEndDate(LocalDate.of(2024, 3, 20));
+        dto.setClientId(1L);
+        dto.setGameId(1L);
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            loanService.save(dto);
+        });
+
+        assert (exception.getMessage().toLowerCase().contains("máximo 14 días"));
+    }
+
+    @Test
+    void shouldThrowExceptionIfGameAlreadyLoaned() {
+        LoanDto dto = new LoanDto();
+        dto.setStartDate(LocalDate.of(2024, 3, 1));
+        dto.setEndDate(LocalDate.of(2024, 3, 5));
+        dto.setGameId(1L);
+        dto.setClientId(1L);
+
+        // Simulamos validación manual dentro del servicio (deberías tener algo como esto)
+        when(loanRepository.findAll(any())).thenReturn(List.of(new Loan()));
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            loanService.save(dto);
+        });
+
+        assert (exception.getMessage().toLowerCase().contains("juego ya está prestado"));
+    }
+
+    @Test
+    void shouldThrowExceptionIfClientHasTwoLoansInOneDay() {
+        LoanDto dto = new LoanDto();
+        dto.setStartDate(LocalDate.of(2024, 3, 1));
+        dto.setEndDate(LocalDate.of(2024, 3, 1));
+        dto.setGameId(1L);
+        dto.setClientId(1L);
+
+        // Simulamos validación manual (de nuevo, dependerá de tu lógica)
+        when(loanRepository.findAll(any())).thenReturn(List.of(new Loan(), new Loan()));
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            loanService.save(dto);
+        });
+
+        assert (exception.getMessage().toLowerCase().contains("cliente ya tiene 2 juegos"));
+    }
+}

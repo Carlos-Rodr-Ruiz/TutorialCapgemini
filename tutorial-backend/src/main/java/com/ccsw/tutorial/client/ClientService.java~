@@ -13,5 +13,7 @@ public interface ClientService {
 
     List<Client> findAll();
 
+    void save(Long id, ClientDto dto) throws Exception;
+
     void delete(Long id) throws Exception;
 }

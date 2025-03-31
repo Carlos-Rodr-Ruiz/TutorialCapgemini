@@ -37,11 +37,17 @@ public class ClientIT {
         HttpEntity<ClientDto> request = new HttpEntity<>(clientDto, headers);
 
         // 💥 AQUÍ CAMBIAMOS postForEntity → exchange y usamos HttpMethod.PUT
-        ResponseEntity<Void> response = restTemplate.exchange(getBaseUrl(), HttpMethod.PUT, request, Void.class);
+        ResponseEntity<Void> response = restTemplate.exchange(
+                getBaseUrl(),
+                HttpMethod.PUT,
+                request,
+                Void.class
+        );
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        boolean exists = clientService.findAll().stream().anyMatch(client -> client.getName().equals("Nuevo Cliente"));
+        boolean exists = clientService.findAll().stream()
+                .anyMatch(client -> client.getName().equals("Nuevo Cliente"));
 
         assertTrue(exists);
     }

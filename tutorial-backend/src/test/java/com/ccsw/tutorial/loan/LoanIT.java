@@ -1,0 +1,73 @@
+package com.ccsw.tutorial.loan;
+
+import com.ccsw.tutorial.loan.model.LoanDto;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class LoanIT {
+
+    private static final String ENDPOINT = "/loan";
+
+    @LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    private String getBaseUrl() {
+        return "http://localhost:" + port + ENDPOINT;
+    }
+
+    private LoanDto buildValidLoan() {
+        LoanDto dto = new LoanDto();
+        dto.setGameId(2L);   // Asegúrate de que este ID existe en data.sql
+        dto.setClientId(1L); // Asegúrate de que este ID existe en data.sql
+        dto.setStartDate(LocalDate.of(2024, 4, 1));
+        dto.setEndDate(LocalDate.of(2024, 4, 10));
+        return dto;
+    }
+
+    @Test
+    void shouldSaveLoanSuccessfully() {
+        LoanDto dto = buildValidLoan();
+        ResponseEntity<Void> response = restTemplate.postForEntity(getBaseUrl(), dto, Void.class);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    void shouldFailWhenEndDateBeforeStartDate() {
+        LoanDto dto = buildValidLoan();
+        dto.setEndDate(dto.getStartDate().minusDays(1));
+
+        ResponseEntity<String> response = restTemplate.postForEntity(getBaseUrl(), dto, String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertTrue(response.getBody().toLowerCase().contains("fin no puede ser anterior"));
+    }
+
+    @Test
+    void shouldFailWhenLoanPeriodTooLong() {
+        LoanDto dto = buildValidLoan();
+        dto.setEndDate(dto.getStartDate().plusDays(20));
+
+        ResponseEntity<String> response = restTemplate.postForEntity(getBaseUrl(), dto, String.class);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertTrue(response.getBody().toLowerCase().contains("máximo 14 días"));
+    }
+
+    // @Test
+    // void shouldFailWhenGameAlreadyLoaned() { ... }
+
+    // @Test
+    // void shouldFailWhenClientHasTooManyLoans() { ... }
+}
