@@ -8,25 +8,35 @@ import java.time.LocalDate;
 public class LoanSpecification {
 
     public static Specification<Loan> hasGame(Long gameId) {
-        return (root, query, builder) -> builder.equal(root.get("game").get("id"), gameId);
+        return (root, query, builder) ->
+                builder.equal(root.get("game").get("id"), gameId);
     }
 
     public static Specification<Loan> hasClient(Long clientId) {
-        return (root, query, builder) -> builder.equal(root.get("client").get("id"), clientId);
+        return (root, query, builder) ->
+                builder.equal(root.get("client").get("id"), clientId);
     }
 
     public static Specification<Loan> includesDate(LocalDate date) {
-        return (root, query, builder) -> builder.and(builder.lessThanOrEqualTo(root.get("startDate"), date), builder.greaterThanOrEqualTo(root.get("endDate"), date));
+        return (root, query, builder) ->
+                builder.and(
+                        builder.lessThanOrEqualTo(root.get("startDate"), date),
+                        builder.greaterThanOrEqualTo(root.get("endDate"), date)
+                );
     }
 
     // Opcional: por nombre del cliente (no usado en este caso)
     public static Specification<Loan> hasClientName(String clientName) {
-        return (root, query, builder) -> builder.like(builder.lower(root.get("client").get("name")), "%" + clientName.toLowerCase() + "%");
+        return (root, query, builder) ->
+                builder.like(builder.lower(root.get("client").get("name")),
+                        "%" + clientName.toLowerCase() + "%");
     }
 
     // Opcional: por título del juego (no usado en este caso)
     public static Specification<Loan> hasGameTitle(String gameTitle) {
-        return (root, query, builder) -> builder.like(builder.lower(root.get("game").get("title")), "%" + gameTitle.toLowerCase() + "%");
+        return (root, query, builder) ->
+                builder.like(builder.lower(root.get("game").get("title")),
+                        "%" + gameTitle.toLowerCase() + "%");
     }
 
     // ✅ Composición centralizada de filtros

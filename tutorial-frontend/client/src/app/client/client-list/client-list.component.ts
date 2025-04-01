@@ -12,7 +12,6 @@ import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/di
   styleUrls: ['./client-list.component.scss']
 })
 export class ClientListComponent implements OnInit {
-
   dataSource = new MatTableDataSource<Client>();
   displayedColumns: string[] = ['id', 'name', 'action'];
 
@@ -32,14 +31,20 @@ export class ClientListComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(() => this.ngOnInit());
+    dialogRef.afterClosed().subscribe((newClient: Client) => {
+      if (newClient) {
+        this.clientService.saveClient(newClient).subscribe(() => {
+          this.ngOnInit();
+        });
+      }
+    });
   }
 
   editClient(client: Client): void {
     const dialogRef = this.dialog.open(ClientEditComponent, {
       data: { client }
     });
-  
+
     dialogRef.afterClosed().subscribe((updatedClient: Client) => {
       if (updatedClient) {
         this.clientService.saveClient(updatedClient).subscribe(() => {
@@ -48,7 +53,6 @@ export class ClientListComponent implements OnInit {
       }
     });
   }
-  
 
   deleteClient(client: Client): void {
     const dialogRef = this.dialog.open(DialogConfirmationComponent, {

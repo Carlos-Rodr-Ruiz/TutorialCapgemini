@@ -1,13 +1,19 @@
 package com.ccsw.tutorial.loan;
 
 import com.ccsw.tutorial.config.ResponsePage;
+import com.ccsw.tutorial.loan.model.Loan;
 import com.ccsw.tutorial.loan.model.LoanDto;
 import com.ccsw.tutorial.loan.model.LoanSearchRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Tag(name = "Loan", description = "API of Loan")
 @RequestMapping(value = "/loan")
@@ -23,23 +29,28 @@ public class LoanController {
 
     /**
      * Método para obtener una lista paginada de préstamos
-     * Permite filtrar por ID de juego, ID de cliente y una fecha intermedia
-     *
-     * @param request Objeto que contiene los filtros y la información de paginación
-     * @return Una página de resultados con préstamos convertidos a LoanDto
      */
     @Operation(summary = "Find Page", description = "Returns a paginated list of loans with optional filters")
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponsePage<LoanDto> find(@org.springframework.web.bind.annotation.RequestBody LoanSearchRequest request) {
+    @PostMapping("")
+    public ResponsePage<LoanDto> find(@RequestBody LoanSearchRequest request) {
         return loanService.find(request.getPageable(), request.getFilters());
     }
 
     /**
-     * Método para guardar un préstamo.
-     * Si el DTO no contiene ID, se creará un nuevo préstamo
-     * Si contiene ID, se actualizará el préstamo existente
-     *
-     * @param dto Objeto DTO con los datos del préstamo a guardar
+     * Nuevo método sin paginación, como en catálogo
+     */
+    @Operation(summary = "Find all (filtered)", description = "Returns all loans with optional filters")
+    @GetMapping("/filtered")
+    public List<LoanDto> findFiltered(@RequestParam(value = "clientId", required = false) Long clientId, @RequestParam(value = "gameId", required = false) Long gameId,
+            @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+
+        List<Loan> loans = loanService.findFiltered(clientId, gameId, date);
+
+        return loans.stream().map(e -> mapper.map(e, LoanDto.class)).collect(Collectors.toList());
+    }
+
+    /**
+     * Guardar préstamo
      */
     @Operation(summary = "Save", description = "Create or update a loan")
     @PutMapping
@@ -48,14 +59,11 @@ public class LoanController {
     }
 
     /**
-     * Método para eliminar un préstamo por su ID
-     *
-     * @param id ID del préstamo a eliminar
+     * Eliminar préstamo
      */
     @Operation(summary = "Delete", description = "Delete a loan by its ID")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         loanService.delete(id);
     }
-
 }

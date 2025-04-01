@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Pageable } from 'src/app/core/model/page/Pageable';
-import { LoanPage } from '../model/LoanPage';
 import { Loan } from '../model/Loan';
-
+import { LoanPage } from '../model/LoanPage';
+import { Pageable } from 'src/app/core/model/page/Pageable';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +15,13 @@ export class LoanService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Obtener préstamos con filtros y paginación
+   */
   getLoans(pageable: Pageable, filters: any): Observable<LoanPage> {
     const payload = {
       pageable: pageable,
-      ...filters
+      filters: filters
     };
 
     return this.http.post<LoanPage>(this.apiUrl, payload).pipe(
@@ -27,11 +29,9 @@ export class LoanService {
     );
   }
 
-
-  getAllLoans(): Observable<Loan[]> {
-    return this.http.get<Loan[]>(this.apiUrl);
-  }
-
+  /**
+   * Guardar un préstamo
+   */
   saveLoan(loan: Loan): Observable<Loan> {
     const url = loan.id ? `${this.apiUrl}/${loan.id}` : this.apiUrl;
     return this.http.put<Loan>(url, loan).pipe(
@@ -39,6 +39,18 @@ export class LoanService {
     );
   }
 
+  /**
+   * Eliminar un préstamo
+   */
+  deleteLoan(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Manejo de errores
+   */
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
@@ -47,9 +59,5 @@ export class LoanService {
       errorMessage = error.error || 'Something went wrong';
     }
     return throwError(() => new Error(errorMessage));
-  }
-
-  deleteLoan(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

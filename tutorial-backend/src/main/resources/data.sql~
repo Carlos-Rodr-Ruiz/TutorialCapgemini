@@ -1,0 +1,65 @@
+-- 🔥 1. Eliminar datos respetando las FK
+DELETE FROM loan;
+DELETE FROM game;
+DELETE FROM client;
+DELETE FROM author;
+DELETE FROM category;
+
+-- 🌱 2. Categorías
+INSERT INTO category(name) VALUES ('Eurogames');
+INSERT INTO category(name) VALUES ('Ameritrash');
+INSERT INTO category(name) VALUES ('Familiar');
+INSERT INTO category(name) VALUES ('Party');
+INSERT INTO category(name) VALUES ('Abstracto');
+
+-- 🌱 3. Autores
+INSERT INTO author(name, nationality) VALUES ('Alan R. Moon', 'US');
+INSERT INTO author(name, nationality) VALUES ('Vital Lacerda', 'PT');
+INSERT INTO author(name, nationality) VALUES ('Simone Luciani', 'IT');
+INSERT INTO author(name, nationality) VALUES ('Perepau Llistosella', 'ES');
+INSERT INTO author(name, nationality) VALUES ('Michael Kiesling', 'DE');
+INSERT INTO author(name, nationality) VALUES ('Phil Walker-Harding', 'US');
+INSERT INTO author(name, nationality) VALUES ('Reiner Knizia', 'DE');
+INSERT INTO author(name, nationality) VALUES ('Uwe Rosenberg', 'DE');
+INSERT INTO author(name, nationality) VALUES ('Elizabeth Hargrave', 'US');
+
+-- 🌱 4. Juegos
+INSERT INTO game(title, age, category_id, author_id) VALUES ('On Mars', '14', 1, 2);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Aventureros al tren', '8', 3, 1);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('1920: Wall Street', '12', 1, 4);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Barrage', '14', 1, 3);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Los viajes de Marco Polo', '12', 1, 3);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Azul', '8', 3, 5);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Patchwork', '8', 5, 8);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Wingspan', '10', 3, 9);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Agricola', '12', 1, 8);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('The Mind', '8', 4, 7);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Catan', '10', 3, 7);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Terraforming Mars', '12', 1, 6);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Great Western Trail', '12', 1, 3);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Carcassonne', '8', 3, 7);
+
+-- 🌱 5. Clientes
+INSERT INTO client(name) VALUES ('Ernesto'); -- ID 1
+INSERT INTO client(name) VALUES ('Laura');
+INSERT INTO client(name) VALUES ('Pepe');
+INSERT INTO client(name) VALUES ('Luis');
+INSERT INTO client(name) VALUES ('Maria');
+INSERT INTO client(name) VALUES ('Ana');
+INSERT INTO client(name) VALUES ('Carmen');
+INSERT INTO client(name) VALUES ('Javier');
+INSERT INTO client(name) VALUES ('Jose');
+
+-- 🎯 6. Préstamos válidos
+-- Ernesto (id = 1)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (1, 1, '2025-03-01', '2025-03-03');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (3, 1, '2025-03-04', '2025-03-06');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (5, 1, '2025-03-07', '2025-03-09');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (7, 1, '2025-03-10', '2025-03-12');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (8, 1, '2025-03-13', '2025-03-15');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (9, 1, '2025-03-16', '2025-03-18');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (10, 1, '2025-03-19', '2025-03-21');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (11, 1, '2025-03-22', '2025-03-24');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (12, 1, '2025-03-25', '2025-03-27');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (13, 1, '2025-03-28', '2025-03-30');
+

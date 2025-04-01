@@ -45,7 +45,11 @@ public class LoanServiceImpl implements LoanService {
 
         Pageable pageable = PageRequest.of(pageableRequest.getPageNumber(), pageSize);
 
-        Specification<Loan> spec = LoanSpecification.buildSpecification(filters != null ? filters.getClientId() : null, filters != null ? filters.getGameId() : null, filters != null ? filters.getDate() : null);
+        Specification<Loan> spec = LoanSpecification.buildSpecification(
+                filters != null ? filters.getClientId() : null,
+                filters != null ? filters.getGameId() : null,
+                filters != null ? filters.getDate() : null
+        );
 
         Page<Loan> page = loanRepository.findAll(spec, pageable);
 
@@ -79,20 +83,24 @@ public class LoanServiceImpl implements LoanService {
             throw new IllegalArgumentException("El periodo del préstamo no puede superar los 14 días");
         }
 
-        List<Loan> overlappingLoans = loanRepository.findByGameIdAndDateOverlap(dto.getGameId(), dto.getStartDate(), dto.getEndDate());
+        List<Loan> overlappingLoans = loanRepository.findByGameIdAndDateOverlap(
+                dto.getGameId(), dto.getStartDate(), dto.getEndDate());
 
         if (dto.getId() != null) {
-            overlappingLoans = overlappingLoans.stream().filter(existing -> !existing.getId().equals(dto.getId())).toList();
+            overlappingLoans = overlappingLoans.stream()
+                    .filter(existing -> !existing.getId().equals(dto.getId())).toList();
         }
 
         if (!overlappingLoans.isEmpty()) {
             throw new IllegalArgumentException("El juego ya está prestado en el rango de fechas indicado.");
         }
 
-        List<Loan> clientLoans = loanRepository.findByClientIdAndDateOverlap(dto.getClientId(), dto.getStartDate(), dto.getEndDate());
+        List<Loan> clientLoans = loanRepository.findByClientIdAndDateOverlap(
+                dto.getClientId(), dto.getStartDate(), dto.getEndDate());
 
         if (dto.getId() != null) {
-            clientLoans = clientLoans.stream().filter(existing -> !existing.getId().equals(dto.getId())).toList();
+            clientLoans = clientLoans.stream()
+                    .filter(existing -> !existing.getId().equals(dto.getId())).toList();
         }
 
         if (clientLoans.size() >= 2) {

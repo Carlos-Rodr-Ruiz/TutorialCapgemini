@@ -30,8 +30,8 @@ public class ClientController {
         return clients.stream().map(e -> mapper.map(e, ClientDto.class)).collect(Collectors.toList());
     }
 
-    @Operation(summary = "Save", description = "Method that saves a new client")
-    @PostMapping
+    @Operation(summary = "Save or update", description = "Method that saves or updates a client")
+    @PutMapping
     public void save(@RequestBody ClientDto dto) throws Exception {
         this.clientService.save(dto);
     }
