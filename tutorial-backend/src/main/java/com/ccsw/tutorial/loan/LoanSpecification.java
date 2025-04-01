@@ -30,4 +30,21 @@ public class LoanSpecification {
             return builder.and(builder.lessThanOrEqualTo(root.get("startDate"), date), builder.greaterThanOrEqualTo(root.get("endDate"), date));
         };
     }
+
+    public static Specification<Loan> hasClientName(String clientName) {
+        return (root, query, builder) -> {
+            if (clientName == null || clientName.trim().isEmpty())
+                return null;
+            return builder.like(builder.lower(root.get("client").get("name")), "%" + clientName.toLowerCase() + "%");
+        };
+    }
+
+    public static Specification<Loan> hasGameTitle(String gameTitle) {
+        return (root, query, builder) -> {
+            if (gameTitle == null || gameTitle.trim().isEmpty())
+                return null;
+            return builder.like(builder.lower(root.get("game").get("title")), "%" + gameTitle.toLowerCase() + "%");
+        };
+    }
+
 }

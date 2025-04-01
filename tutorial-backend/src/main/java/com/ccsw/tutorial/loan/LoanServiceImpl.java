@@ -61,13 +61,21 @@ public class LoanServiceImpl implements LoanService {
         // Crea objeto Pageable
         Pageable pageable = PageRequest.of(pageableRequest.getPageNumber(), pageSize);
 
-        // Verifica que los filtros incluyan al menos un gameId
-        if (filters == null || filters.getGameId() == null) {
-            throw new IllegalArgumentException("El filtro 'gameId' es obligatorio.");
-        }
+        // Construye especificación dinámica (sin filtros obligatorios)
+        Specification<Loan> spec = Specification.where(null);
 
-        // Construye la especificación usando los filtros
-        Specification<Loan> spec = Specification.where(LoanSpecification.hasGame(filters.getGameId())).and(LoanSpecification.hasClient(filters.getClientId())).and(LoanSpecification.includesDate(filters.getDate()));
+        if (filters != null) {
+            if (filters.getGameId() != null) {
+                spec = spec.and(LoanSpecification.hasGame(filters.getGameId()));
+            }
+            if (filters.getClientId() != null) {
+                spec = spec.and(LoanSpecification.hasClient(filters.getClientId()));
+            }
+            if (filters.getDate() != null) {
+                spec = spec.and(LoanSpecification.includesDate(filters.getDate()));
+            }
+
+        }
 
         // Ejecuta la consulta paginada
         Page<Loan> page = loanRepository.findAll(spec, pageable);
