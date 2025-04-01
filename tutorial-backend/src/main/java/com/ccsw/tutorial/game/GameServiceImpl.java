@@ -6,6 +6,7 @@ import com.ccsw.tutorial.common.criteria.SearchCriteria;
 import com.ccsw.tutorial.game.model.Game;
 import com.ccsw.tutorial.game.model.GameDto;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -57,22 +58,12 @@ public class GameServiceImpl implements GameService {
             game = this.gameRepository.findById(id).orElse(null);
         }
 
-        // Verificar que el author y category no sean nulos
-        if (dto.getAuthor() == null || dto.getCategory() == null) {
-            throw new IllegalArgumentException("Author and Category must not be null");
-        }
+        BeanUtils.copyProperties(dto, game, "id", "author", "category");
 
-        // Asignar autor y categoría
         game.setAuthor(authorService.get(dto.getAuthor().getId()));
         game.setCategory(categoryService.get(dto.getCategory().getId()));
 
-        // Guardar el juego
         this.gameRepository.save(game);
-    }
-
-    @Override
-    public Game get(Long gameId) {
-        return null;
     }
 
 }
