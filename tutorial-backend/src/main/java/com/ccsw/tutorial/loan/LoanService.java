@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface LoanService {
 
+    List<Loan> findAll();
+
     ResponsePage<LoanDto> find(PageableRequest pageable, LoanSearchDto filters);
 
     /**

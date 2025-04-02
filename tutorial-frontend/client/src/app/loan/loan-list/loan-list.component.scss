@@ -1,81 +1,40 @@
 .container {
-    margin: 20px;
-    background-color: #F8F9FA; // Fondo claro
-    border: 1px solid #007BFF; // Borde azul
-    border-radius: 5px;
-    padding: 20px;
-  
-    .filters {
-      display: flex;
-      margin-bottom: 5px;
-    }
-  
-    .buttons {
-      flex: auto;
-      align-self: center;
-  
-      button {
-        margin-left: 15px;
-        background-color: #007BFF; // Azul
-        color: #FFFFFF; // Blanco
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-  
-        &:hover {
-          background-color: darken(#007BFF, 10%);
-        }
-      }
-    }
-  
+  padding: 5rem 9rem;
+
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
     mat-form-field {
       width: 300px;
-      margin-right: 20px;
     }
-  
-    mat-table {
-      margin-top: 5px;
-      margin-bottom: 5px;
-  
-      .mat-header-row {
-        background-color: #E3F2FD; // Fondo azul claro
-  
-        .mat-header-cell {
-          text-transform: uppercase;
-          font-weight: bold;
-          color: #007BFF; // Azul
-        }
+
+    .filters-buttons-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+
+      .buttons {
+        display: flex;
+        gap: 1rem;
       }
-  
-      .mat-column-id {
-        flex: 0 0 20%;
-        justify-content: center;
-      }
-  
-      .mat-column-action {
-        flex: 0 0 10%;
-        justify-content: center;
+
+      .create-button {
+        text-align: right;
       }
     }
-  
-    .new-button {
-      margin-top: 2px;
-      text-align: right;
-  
-      button {
-        background-color: #007BFF; // Azul
-        color: #FFFFFF; // Blanco
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-  
-        &:hover {
-          background-color: darken(#007BFF, 10%);
-        }
-      }
-    }
+  }
+
+  mat-table {
+    margin-bottom: 2rem;
+  }
 }

@@ -1,7 +1,7 @@
 <div class="container">
-    <h1 *ngIf="loan.id == null">Nuevo préstamo</h1>
+  <h1 *ngIf="!loan.id">Nuevo préstamo</h1>
   
-    <form>
+    <form *ngIf="loan">
       <mat-form-field>
         <mat-label>Identificador</mat-label>
         <input type="text" matInput placeholder="Identificador" [(ngModel)]="loan.id" name="id" disabled>

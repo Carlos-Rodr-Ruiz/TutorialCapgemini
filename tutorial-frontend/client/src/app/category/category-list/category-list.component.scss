@@ -1,31 +1,36 @@
 .container {
-  padding: 24px;
-}
+  padding: 5rem 9rem;
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+  mat-table {
+    width: 100%;
+    margin-bottom: 2rem;
 
-th,
-td {
-  padding: 12px;
-  text-align: left;
-}
+    .mat-header-row {
+      background-color: #f5f5f5;
 
-thead {
-  background-color: #f5f5f5;
-}
+      .mat-header-cell {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+    }
 
-.action-column {
-  width: 120px;
+    .mat-cell,
+    .mat-header-cell {
+      padding: 12px;
+    }
+
+    .mat-column-action {
+      width: 120px;
+      text-align: center;
+    }
+  }
 }
 
 mat-icon {

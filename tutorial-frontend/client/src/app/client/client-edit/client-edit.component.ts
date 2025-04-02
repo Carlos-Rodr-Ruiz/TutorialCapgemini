@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ClientService } from '../client.service';
 import { Client } from '../model/Client';
 
 @Component({
@@ -12,25 +13,20 @@ export class ClientEditComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ClientEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private clientService: ClientService
   ) { }
 
   ngOnInit(): void {
-    // Si hay un cliente recibido en los datos del diálogo, lo asignamos
     if (this.data.client) {
       this.client = { ...this.data.client };
     }
   }
 
   onSave(): void {
-    if (this.client.id) {
-      // Editar cliente existente
-      this.dialogRef.close(this.client);
-    } else {
-      // Crear nuevo cliente
-      this.client.id = null; // Asegurarse de que el id esté vacío al crear un nuevo cliente
-      this.dialogRef.close(this.client);
-    }
+    this.clientService.saveClient(this.client).subscribe(result => {
+      this.dialogRef.close(result);
+    });
   }
 
   onClose(): void {

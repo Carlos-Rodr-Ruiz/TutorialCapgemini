@@ -17,9 +17,8 @@ export class ClientService {
   }
 
   saveClient(client: Client): Observable<void> {
-    let url = this.url;
-    if (client.id != null) url += '/' + client.id;
-    return this.http.put<void>(url, client);
+    // Siempre usamos POST porque el backend no tiene PUT
+    return this.http.post<void>(this.url, client);
   }
 
   deleteClient(idClient: number): Observable<void> {

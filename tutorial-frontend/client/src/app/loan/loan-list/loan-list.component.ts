@@ -6,6 +6,10 @@ import { ClientService } from 'src/app/client/client.service';
 import { GameService } from 'src/app/game/game.service';
 import { Client } from 'src/app/client/model/Client';
 import { Game } from 'src/app/game/model/Game';
+import { LoanEditComponent } from '../loan-edit/loan-edit.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmationComponent } from 'src/app/core/dialog-confirmation/dialog-confirmation.component';
+import { DialogSuccessComponent } from 'src/app/core/dialog-success/dialog-success.component';
 
 @Component({
   selector: 'app-loan-list',
@@ -13,6 +17,8 @@ import { Game } from 'src/app/game/model/Game';
   styleUrls: ['./loan-list.component.scss']
 })
 export class LoanListComponent implements OnInit {
+  
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   loans: Loan[] = [];
@@ -35,8 +41,24 @@ export class LoanListComponent implements OnInit {
   constructor(
     private loanService: LoanService,
     private clientService: ClientService,
-    private gameService: GameService
+    private gameService: GameService,
+    private dialog: MatDialog
   ) {}
+
+  createLoan(): void {
+    const dialogRef = this.dialog.open(LoanEditComponent, {
+      data: { loan: null }
+    });
+  
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadPage({
+        pageIndex: this.pageNumber,
+        pageSize: this.pageSize,
+        length: this.totalElements
+      });
+    });
+  }
+  
 
   ngOnInit(): void {
     this.loadClients();
@@ -88,4 +110,29 @@ export class LoanListComponent implements OnInit {
     this.filterDate = null;
     this.onSearch();
   }
-}
+  deleteLoan(loan: Loan): void {
+    const dialogRef = this.dialog.open(DialogConfirmationComponent, {
+      data: {
+        title: "Eliminar préstamo",
+        description: `¿Estás seguro de que deseas eliminar el préstamo del juego "${loan['gameTitle']}" para el cliente "${loan['clientName']}"?`
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        this.loanService.deleteLoan(loan.id).subscribe(() => {
+          this.loadPage();
+          this.dialog.open(DialogSuccessComponent, {
+            data: {
+              title: 'Préstamo eliminado',
+              description: 'El préstamo fue eliminado correctamente.'
+            }
+          });
+        });
+      }
+    });
+    
+  }
+  
+}  
+

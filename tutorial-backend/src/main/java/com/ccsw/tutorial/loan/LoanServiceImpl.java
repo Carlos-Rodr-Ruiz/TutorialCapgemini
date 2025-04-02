@@ -13,7 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -21,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class LoanServiceImpl implements LoanService {
 
     @Autowired
@@ -31,6 +35,11 @@ public class LoanServiceImpl implements LoanService {
 
     @Autowired
     private ClientService clientService;
+
+    @Override
+    public List<Loan> findAll() {
+        return loanRepository.findAll();
+    }
 
     @Override
     public ResponsePage<LoanDto> find(PageableRequest pageableRequest, LoanSearchDto filters) {
@@ -63,6 +72,7 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public void save(LoanDto dto) {
         Loan loan;
+
         if (dto.getId() == null) {
             loan = new Loan();
         } else {
@@ -72,11 +82,11 @@ public class LoanServiceImpl implements LoanService {
         BeanUtils.copyProperties(dto, loan, "id", "game", "client");
 
         if (dto.getEndDate().isBefore(dto.getStartDate())) {
-            throw new IllegalArgumentException("La fecha de fin no puede ser anterior a la de inicio");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La fecha de fin no puede ser anterior a la de inicio");
         }
 
         if (ChronoUnit.DAYS.between(dto.getStartDate(), dto.getEndDate()) > 14) {
-            throw new IllegalArgumentException("El periodo del préstamo no puede superar los 14 días");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El periodo del préstamo no puede superar los 14 días");
         }
 
         List<Loan> overlappingLoans = loanRepository.findByGameIdAndDateOverlap(dto.getGameId(), dto.getStartDate(), dto.getEndDate());
@@ -86,7 +96,7 @@ public class LoanServiceImpl implements LoanService {
         }
 
         if (!overlappingLoans.isEmpty()) {
-            throw new IllegalArgumentException("El juego ya está prestado en el rango de fechas indicado.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El juego ya está prestado en el rango de fechas indicado.");
         }
 
         List<Loan> clientLoans = loanRepository.findByClientIdAndDateOverlap(dto.getClientId(), dto.getStartDate(), dto.getEndDate());
@@ -96,20 +106,21 @@ public class LoanServiceImpl implements LoanService {
         }
 
         if (clientLoans.size() >= 2) {
-            throw new IllegalArgumentException("El cliente ya tiene 2 préstamos en el rango de fechas indicado.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El cliente ya tiene 2 préstamos en el rango de fechas indicado.");
         }
 
         if (dto.getGameId() == null) {
-            throw new IllegalArgumentException("Game ID must not be null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Debe seleccionar un juego.");
         }
 
         loan.setGame(gameService.get(dto.getGameId()));
 
         if (loan.getGame() == null) {
-            throw new IllegalArgumentException("Game must not be null");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El juego seleccionado no existe.");
         }
 
         loan.setClient(clientService.get(dto.getClientId()));
+        System.out.println("DTO recibido: " + dto);
 
         loanRepository.save(loan);
     }
@@ -133,4 +144,5 @@ public class LoanServiceImpl implements LoanService {
         dto.setEndDate(entity.getEndDate());
         return dto;
     }
+
 }

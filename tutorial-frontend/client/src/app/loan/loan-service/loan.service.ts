@@ -10,6 +10,9 @@ import { Pageable } from 'src/app/core/model/page/Pageable';
   providedIn: 'root'
 })
 export class LoanService {
+  deleteCategory(id: number) {
+    throw new Error('Method not implemented.');
+  }
 
   private apiUrl = 'http://localhost:8080/loan';
 
@@ -32,12 +35,20 @@ export class LoanService {
   /**
    * Guardar un préstamo
    */
-  saveLoan(loan: Loan): Observable<Loan> {
-    const url = loan.id ? `${this.apiUrl}/${loan.id}` : this.apiUrl;
-    return this.http.put<Loan>(url, loan).pipe(
-      catchError(this.handleError)
-    );
+  saveLoan(dto: any): Observable<any> {
+    if (dto.id) {
+      // Actualización
+      return this.http.put<any>(`${this.apiUrl}/${dto.id}`, dto).pipe(
+        catchError(this.handleError)
+      );
+    } else {
+      // Alta nuevo préstamo
+      return this.http.post<any>(this.apiUrl, dto).pipe(
+        catchError(this.handleError)
+      );
+    }
   }
+  
 
   /**
    * Eliminar un préstamo

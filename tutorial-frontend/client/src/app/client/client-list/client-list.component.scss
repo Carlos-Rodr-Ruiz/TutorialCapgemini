@@ -1,18 +1,33 @@
 .container {
-    padding: 2rem;
-  }
-  
-  h1 {
+  padding: 5rem 9rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 2rem;
   }
-  
-  mat-form-field {
+
+  mat-table {
     width: 100%;
+    margin-bottom: 2rem;
+
+    .mat-header-row {
+      background-color: #f5f5f5;
+
+      .mat-header-cell {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+
+    .mat-cell,
+    .mat-header-cell {
+      padding: 12px;
+    }
+
+    .mat-column-action {
+      text-align: center;
+    }
   }
-  
-  .buttons {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
+}

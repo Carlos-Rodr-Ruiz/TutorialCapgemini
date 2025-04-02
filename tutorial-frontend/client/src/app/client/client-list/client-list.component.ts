@@ -30,28 +30,24 @@ export class ClientListComponent implements OnInit {
     const dialogRef = this.dialog.open(ClientEditComponent, {
       data: {}
     });
-
-    dialogRef.afterClosed().subscribe((newClient: Client) => {
-      if (newClient) {
-        this.clientService.saveClient(newClient).subscribe(() => {
-          this.ngOnInit();
-        });
-      }
+  
+    dialogRef.afterClosed().subscribe(result => {
+        this.ngOnInit();
+      
     });
   }
+  
 
   editClient(client: Client): void {
     const dialogRef = this.dialog.open(ClientEditComponent, {
       data: { client }
     });
 
-    dialogRef.afterClosed().subscribe((updatedClient: Client) => {
-      if (updatedClient) {
-        this.clientService.saveClient(updatedClient).subscribe(() => {
-          this.ngOnInit();
-        });
-      }
+    dialogRef.afterClosed().subscribe(result => {
+        this.ngOnInit();
+      
     });
+    
   }
 
   deleteClient(client: Client): void {

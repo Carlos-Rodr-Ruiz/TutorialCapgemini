@@ -42,6 +42,7 @@ INSERT INTO client(name) VALUES ('Ana');     -- id = 6
 INSERT INTO client(name) VALUES ('Carmen');  -- id = 7
 INSERT INTO client(name) VALUES ('Javier');  -- id = 8
 INSERT INTO client(name) VALUES ('Jose');    -- id = 9
+INSERT INTO client(name) VALUES ('Joselu');  -- id = 10
 
 -- 🎯 Préstamos para Ernesto (1)
 INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (1, 1, '2025-03-01', '2025-03-03');

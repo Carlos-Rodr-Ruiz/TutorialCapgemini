@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -34,13 +35,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-
-  ],
-  providers: [
-    {
-      provide: MAT_DIALOG_DATA,
-      useValue: {},
-    },
+    MatSnackBarModule 
   ]
 })
 export class LoanModule { }

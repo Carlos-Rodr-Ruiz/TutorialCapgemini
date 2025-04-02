@@ -1,38 +1,37 @@
 .container {
-    margin: 20px;
+    padding: 2rem 5rem;
 
+  
+    h1 {
+      margin-bottom: 2rem;
+    }
+  
     .filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 2rem;
+  
+      mat-form-field {
+        width: 300px;
+      }
+  
+      .buttons {
         display: flex;
-
-        mat-form-field {
-            width: 300px;
-            margin-right: 20px;
-        }
-
-        .buttons {
-            flex: auto;
-            align-self: center;
-
-            button {
-                margin-left: 15px;
-            }
-        }
+        gap: 1rem;
+      }
+  
+      .create-button {
+        margin-left: auto;
+      }
     }
-
-    .game-list { 
-        margin-top: 20px;
-        margin-bottom: 20px;
-
-        display: flex;
-        flex-flow: wrap;
-        overflow: auto;  
+  
+    .game-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
-
-    .buttons {
-        text-align: right;
-    }
-}
-
-button {
-    width: 125px;
-}
+  }
+  

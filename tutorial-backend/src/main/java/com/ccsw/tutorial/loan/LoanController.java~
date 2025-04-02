@@ -41,10 +41,8 @@ public class LoanController {
      */
     @Operation(summary = "Find all (filtered)", description = "Returns all loans with optional filters")
     @GetMapping("/filtered")
-    public List<LoanDto> findFiltered(@RequestParam(value = "clientId", required = false) Long clientId,
-            @RequestParam(value = "gameId", required = false) Long gameId,
-            @RequestParam(value = "date", required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<LoanDto> findFiltered(@RequestParam(value = "clientId", required = false) Long clientId, @RequestParam(value = "gameId", required = false) Long gameId,
+            @RequestParam(value = "date", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
 
         List<Loan> loans = loanService.findFiltered(clientId, gameId, date);
 

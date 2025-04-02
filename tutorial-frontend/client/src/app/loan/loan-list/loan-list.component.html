@@ -1,82 +1,90 @@
-<h2>Gestión de préstamos</h2>
+<div class="container">
+  <h1>Gestión de Préstamos</h1>
 
-<!-- 🔎 Filtros -->
-<div class="filtros" style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: flex-end; flex-wrap: wrap;">
-  
-  <!-- Cliente -->
-  <mat-form-field appearance="outline">
-    <mat-label>Cliente</mat-label>
-    <mat-select [(ngModel)]="filterClient">
-      <mat-option *ngFor="let c of clients" [value]="c">{{ c.name }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <!-- 🔎 Filtros -->
+  <div class="filters">
+    <!-- Cliente -->
+    <mat-form-field appearance="outline">
+      <mat-label>Cliente</mat-label>
+      <mat-select [(ngModel)]="filterClient">
+        <mat-option *ngFor="let c of clients" [value]="c">{{ c.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <!-- Juego -->
-  <mat-form-field appearance="outline">
-    <mat-label>Juego</mat-label>
-    <mat-select [(ngModel)]="filterGame">
-      <mat-option *ngFor="let g of games" [value]="g">{{ g.title }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+    <!-- Juego -->
+    <mat-form-field appearance="outline">
+      <mat-label>Juego</mat-label>
+      <mat-select [(ngModel)]="filterGame">
+        <mat-option *ngFor="let g of games" [value]="g">{{ g.title }}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-  <!-- Fecha -->
-  <mat-form-field appearance="outline">
-    <mat-label>Fecha</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="filterDate">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+    <!-- Fecha -->
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="filterDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-  <!-- Botones -->
-  <button mat-raised-button color="primary" (click)="onSearch()">Filtrar</button>
-  <button mat-stroked-button (click)="clearFilters()">Limpiar</button>
+    <!-- Botones de acción -->
+    <div class="buttons" style="display: flex; gap: 1rem;">
+      <button mat-flat-button color="primary" (click)="onSearch()">Filtrar</button>
+      <button mat-stroked-button color="warn" (click)="clearFilters()">Limpiar</button>
+    </div>
+
+    <!-- Botón de nuevo préstamo -->
+    <div class="create-button" style="margin-left: auto;">
+      <button mat-flat-button color="accent" (click)="createLoan()">Nuevo préstamo</button>
+    </div>
+  </div>
+
+  <!-- 📄 Tabla de resultados -->
+  <mat-table [dataSource]="loans" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let loan"> {{ loan.id }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="gameTitle">
+      <mat-header-cell *matHeaderCellDef> Juego </mat-header-cell>
+      <mat-cell *matCellDef="let loan"> {{ loan.gameTitle }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="clientName">
+      <mat-header-cell *matHeaderCellDef> Cliente </mat-header-cell>
+      <mat-cell *matCellDef="let loan"> {{ loan.clientName }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="startDate">
+      <mat-header-cell *matHeaderCellDef> Inicio </mat-header-cell>
+      <mat-cell *matCellDef="let loan"> {{ loan.startDate }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="endDate">
+      <mat-header-cell *matHeaderCellDef> Fin </mat-header-cell>
+      <mat-cell *matCellDef="let loan"> {{ loan.endDate }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
+      <mat-cell *matCellDef="let loan">
+        <button mat-icon-button color="accent" (click)="deleteLoan(loan)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <!-- 📚 Paginador -->
+  <mat-paginator
+    [length]="totalElements"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="loadPage($event)">
+  </mat-paginator>
 </div>
-
-<!-- 📄 Tabla de resultados -->
-<table mat-table [dataSource]="loans" class="mat-elevation-z8" style="width: 100%">
-
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> ID </th>
-    <td mat-cell *matCellDef="let loan"> {{ loan.id }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="gameTitle">
-    <th mat-header-cell *matHeaderCellDef> Juego </th>
-    <td mat-cell *matCellDef="let loan"> {{ loan.gameTitle }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="clientName">
-    <th mat-header-cell *matHeaderCellDef> Cliente </th>
-    <td mat-cell *matCellDef="let loan"> {{ loan.clientName }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="startDate">
-    <th mat-header-cell *matHeaderCellDef> Inicio </th>
-    <td mat-cell *matCellDef="let loan"> {{ loan.startDate }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="endDate">
-    <th mat-header-cell *matHeaderCellDef> Fin </th>
-    <td mat-cell *matCellDef="let loan"> {{ loan.endDate }} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef> Acción </th>
-    <td mat-cell *matCellDef="let loan">
-      <button mat-icon-button color="accent">
-        <mat-icon>clear</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-
-<!-- 📚 Paginador -->
-<mat-paginator
-  [length]="totalElements"
-  [pageSize]="pageSize"
-  [pageSizeOptions]="[5, 10, 20]"
-  (page)="loadPage($event)">
-</mat-paginator>

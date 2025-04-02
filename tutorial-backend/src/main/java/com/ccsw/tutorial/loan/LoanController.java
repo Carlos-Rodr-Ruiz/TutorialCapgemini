@@ -66,4 +66,10 @@ public class LoanController {
     public void delete(@PathVariable Long id) {
         loanService.delete(id);
     }
+
+    @GetMapping("/all-debug")
+    public List<Loan> findAllDebug() {
+        return loanService.findAll();
+    }
+
 }

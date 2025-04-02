@@ -14,12 +14,6 @@ import { GameModule } from './game/game.module';
 import { ClientModule } from './client/client.module';
 import { LoanModule } from './loan/loan.module';
 
-
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent
