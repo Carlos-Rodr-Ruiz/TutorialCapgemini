@@ -50,11 +50,21 @@ public class LoanController {
     }
 
     /**
-     * Guardar préstamo
+     * Guardar préstamo (no se utiliza)
      */
     @Operation(summary = "Save", description = "Create or update a loan")
     @PutMapping
     public void save(@RequestBody LoanDto dto) {
+        loanService.save(dto);
+    }
+
+    /**
+     * Crear préstamo
+     * @param dto
+     */
+    @Operation(summary = "Save", description = "Create a loan")
+    @PostMapping("/create")
+    public void create(@RequestBody LoanDto dto) {
         loanService.save(dto);
     }
 

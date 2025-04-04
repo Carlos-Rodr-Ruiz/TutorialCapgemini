@@ -1,9 +1,9 @@
 -- 🔥 Limpiar datos anteriores
-DELETE FROM loan;
-DELETE FROM game;
-DELETE FROM client;
-DELETE FROM author;
-DELETE FROM category;
+--DELETE FROM loan;
+--DELETE FROM game;
+--DELETE FROM client;
+--DELETE FROM author;
+--DELETE FROM category;
 
 -- 🌱 Categorías
 INSERT INTO category(name) VALUES ('Eurogames');

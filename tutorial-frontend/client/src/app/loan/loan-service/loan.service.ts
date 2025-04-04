@@ -38,12 +38,12 @@ export class LoanService {
   saveLoan(dto: any): Observable<any> {
     if (dto.id) {
       // Actualización
-      return this.http.put<any>(`${this.apiUrl}/${dto.id}`, dto).pipe(
+      return this.http.put<any>(this.apiUrl, dto).pipe(
         catchError(this.handleError)
       );
     } else {
       // Alta nuevo préstamo
-      return this.http.post<any>(this.apiUrl, dto).pipe(
+      return this.http.post<any>(`${this.apiUrl}/create`, dto).pipe(
         catchError(this.handleError)
       );
     }

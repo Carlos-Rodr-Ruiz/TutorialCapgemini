@@ -19,16 +19,6 @@ public class LoanSpecification {
         return (root, query, builder) -> builder.and(builder.lessThanOrEqualTo(root.get("startDate"), date), builder.greaterThanOrEqualTo(root.get("endDate"), date));
     }
 
-    // Opcional: por nombre del cliente (no usado en este caso)
-    public static Specification<Loan> hasClientName(String clientName) {
-        return (root, query, builder) -> builder.like(builder.lower(root.get("client").get("name")), "%" + clientName.toLowerCase() + "%");
-    }
-
-    // Opcional: por título del juego (no usado en este caso)
-    public static Specification<Loan> hasGameTitle(String gameTitle) {
-        return (root, query, builder) -> builder.like(builder.lower(root.get("game").get("title")), "%" + gameTitle.toLowerCase() + "%");
-    }
-
     // ✅ Composición centralizada de filtros
     public static Specification<Loan> buildSpecification(Long clientId, Long gameId, LocalDate date) {
         Specification<Loan> spec = Specification.where(null);

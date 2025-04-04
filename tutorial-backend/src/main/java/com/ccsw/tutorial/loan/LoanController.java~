@@ -59,6 +59,15 @@ public class LoanController {
     }
 
     /**
+     * Crear préstamo
+     * @param dto
+     */
+    @PostMapping("/create")
+    public void create(@RequestBody LoanDto dto) {
+        loanService.save(dto);
+    }
+
+    /**
      * Eliminar préstamo
      */
     @Operation(summary = "Delete", description = "Delete a loan by its ID")
@@ -66,4 +75,10 @@ public class LoanController {
     public void delete(@PathVariable Long id) {
         loanService.delete(id);
     }
+
+    @GetMapping("/all-debug")
+    public List<Loan> findAllDebug() {
+        return loanService.findAll();
+    }
+
 }

@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { DialogSuccessComponent } from 'src/app/core/dialog-success/dialog-success.component';
 import { Loan } from '../model/Loan';
 import { LoanService } from '../loan-service/loan.service';
@@ -28,7 +27,6 @@ export class LoanEditComponent implements OnInit {
     private loanService: LoanService,
     private clientService: ClientService,
     private gameService: GameService,
-    private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {}
 
@@ -43,42 +41,37 @@ export class LoanEditComponent implements OnInit {
     const { client, game, startLoanDate, endLoanDate } = this.loan;
 
     if (!client || !game || !startLoanDate || !endLoanDate) {
-      this.showError('Todos los campos son obligatorios.');
+      this.showDialog('Campos obligatorios', 'Todos los campos son obligatorios.');
       return;
     }
 
     if (startLoanDate > endLoanDate) {
-      this.showError('La fecha de devolución no puede ser anterior a la fecha de préstamo.');
+      this.showDialog('Fechas inválidas', 'La fecha de devolución no puede ser anterior a la fecha de préstamo.');
       return;
     }
 
     const diffDays = (new Date(endLoanDate).getTime() - new Date(startLoanDate).getTime()) / (1000 * 3600 * 24);
-    if (diffDays > 14) {
-      this.showError('El periodo de préstamo máximo es de 14 días.');
+    if (diffDays > 30) {
+      this.showDialog('Fechas inválidas', 'La duración del préstamo no puede superar los 30 días.');
       return;
     }
 
     const dto = {
-      id: this.loan.id,
-      clientId: client.id,
-      gameId: game.id,
-      startDate: startLoanDate,
-      endDate: endLoanDate
+      clientId: this.loan.client.id,
+      gameId: this.loan.game.id,
+      startDate: this.loan.startLoanDate,
+      endDate: this.loan.endLoanDate
     };
-    
+    console.log('📦 Enviando DTO:', dto);
+
     this.loanService.saveLoan(dto).subscribe({
       next: () => {
         this.dialogRef.close(true);
-        this.dialog.open(DialogSuccessComponent, {
-          data: {
-            title: 'Operación de guardado',
-            description: 'Préstamo guardado con éxito :)'
-          }
-        });
+        this.showDialog('¡Éxito!', 'Préstamo guardado correctamente.');
       },
       error: (error) => {
-        const backendMessage = error?.error?.message || 'Error desconocido';
-        this.showError(backendMessage);
+        const mensaje = error?.error?.message || 'Error al guardar el préstamo.';
+        this.showDialog('Error', mensaje);
       }
     });
   }
@@ -87,11 +80,9 @@ export class LoanEditComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  private showError(message: string): void {
-    this.errorMessage = message;
-    this.snackBar.open(message, 'Cerrar', {
-      panelClass: ['error-snackbar'],
-      verticalPosition: 'top'
+  private showDialog(title: string, description: string): void {
+    this.dialog.open(DialogSuccessComponent, {
+      data: { title, description }
     });
   }
 }

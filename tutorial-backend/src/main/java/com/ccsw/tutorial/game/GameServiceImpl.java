@@ -68,7 +68,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game get(Long gameId) {
-        return null;
+        return gameRepository.findById(gameId).orElseThrow(() -> new RuntimeException("Juego no encontrado con ID: " + gameId));
     }
 
 }

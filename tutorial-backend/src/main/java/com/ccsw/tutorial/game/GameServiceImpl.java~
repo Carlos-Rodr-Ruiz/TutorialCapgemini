@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-
-
 import java.util.List;
 
 /**
@@ -70,7 +68,9 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public Game get(Long gameId) {
-        return null;
+        return gameRepository.findById(gameId)
+                .orElseThrow(() -> new RuntimeException("Juego no encontrado con ID: " + gameId));
     }
+
 
 }
