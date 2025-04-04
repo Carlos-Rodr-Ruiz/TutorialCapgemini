@@ -1,17 +1,82 @@
+-- 🔥 Limpiar datos anteriores
+--DELETE FROM loan;
+--DELETE FROM game;
+--DELETE FROM client;
+--DELETE FROM author;
+--DELETE FROM category;
+
+-- 🌱 Categorías
 INSERT INTO category(name) VALUES ('Eurogames');
 INSERT INTO category(name) VALUES ('Ameritrash');
 INSERT INTO category(name) VALUES ('Familiar');
 
+-- 🌱 Autores
 INSERT INTO author(name, nationality) VALUES ('Alan R. Moon', 'US');
 INSERT INTO author(name, nationality) VALUES ('Vital Lacerda', 'PT');
 INSERT INTO author(name, nationality) VALUES ('Simone Luciani', 'IT');
-INSERT INTO author(name, nationality) VALUES ('Perepau Llistosella', 'ES');
-INSERT INTO author(name, nationality) VALUES ('Michael Kiesling', 'DE');
-INSERT INTO author(name, nationality) VALUES ('Phil Walker-Harding', 'US');
+INSERT INTO author(name, nationality) VALUES ('Reiner Knizia', 'DE');
+INSERT INTO author(name, nationality) VALUES ('Uwe Rosenberg', 'DE');
+INSERT INTO author(name, nationality) VALUES ('Antoine Bauza', 'FR');
 
+-- 🌱 Juegos
 INSERT INTO game(title, age, category_id, author_id) VALUES ('On Mars', '14', 1, 2);
 INSERT INTO game(title, age, category_id, author_id) VALUES ('Aventureros al tren', '8', 3, 1);
-INSERT INTO game(title, age, category_id, author_id) VALUES ('1920: Wall Street', '12', 1, 4);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('1920: Wall Street', '12', 1, 3);
 INSERT INTO game(title, age, category_id, author_id) VALUES ('Barrage', '14', 1, 3);
 INSERT INTO game(title, age, category_id, author_id) VALUES ('Los viajes de Marco Polo', '12', 1, 3);
-INSERT INTO game(title, age, category_id, author_id) VALUES ('Azul', '8', 3, 5);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Azul', '8', 3, 4);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Agricola', '12', 1, 5);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('7 Wonders', '10', 3, 6);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Kanban EV', '14', 1, 2);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Lisboa', '14', 1, 2);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('The Gallerist', '14', 1, 2);
+INSERT INTO game(title, age, category_id, author_id) VALUES ('Caverna', '12', 1, 5);
+
+-- 🌱 Clientes
+INSERT INTO client(name) VALUES ('Ernesto'); -- id = 1
+INSERT INTO client(name) VALUES ('Laura');   -- id = 2
+INSERT INTO client(name) VALUES ('Pepe');    -- id = 3
+INSERT INTO client(name) VALUES ('Luis');    -- id = 4
+INSERT INTO client(name) VALUES ('Maria');   -- id = 5
+INSERT INTO client(name) VALUES ('Ana');     -- id = 6
+INSERT INTO client(name) VALUES ('Carmen');  -- id = 7
+INSERT INTO client(name) VALUES ('Javier');  -- id = 8
+INSERT INTO client(name) VALUES ('Jose');    -- id = 9
+INSERT INTO client(name) VALUES ('Joselu');  -- id = 10
+
+-- 🎯 Préstamos para Ernesto (1)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (1, 1, '2025-03-01', '2025-03-03');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (3, 1, '2025-03-04', '2025-03-06');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (5, 1, '2025-03-07', '2025-03-09');
+
+-- 🎯 Préstamos para Laura (2)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (2, 2, '2025-03-01', '2025-03-05');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (6, 2, '2025-03-06', '2025-03-10');
+
+-- 🎯 Préstamos para Pepe (3)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (4, 3, '2025-03-01', '2025-03-03');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (7, 3, '2025-03-04', '2025-03-06');
+
+-- 🎯 Préstamos para Luis (4)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (8, 4, '2025-03-01', '2025-03-04');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (9, 4, '2025-03-05', '2025-03-07');
+
+-- 🎯 Préstamos para Maria (5)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (10, 5, '2025-03-01', '2025-03-05');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (11, 5, '2025-03-06', '2025-03-10');
+
+-- 🎯 Préstamos para Ana (6)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (12, 6, '2025-03-01', '2025-03-04');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (1, 6, '2025-03-05', '2025-03-08');
+
+-- 🎯 Préstamos para Carmen (7)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (2, 7, '2025-03-01', '2025-03-03');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (3, 7, '2025-03-04', '2025-03-06');
+
+-- 🎯 Préstamos para Javier (8)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (4, 8, '2025-03-07', '2025-03-09');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (5, 8, '2025-03-10', '2025-03-12');
+
+-- 🎯 Préstamos para Jose (9)
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (6, 9, '2025-03-01', '2025-03-04');
+INSERT INTO loan(game_id, client_id, start_date, end_date) VALUES (7, 9, '2025-03-05', '2025-03-08');

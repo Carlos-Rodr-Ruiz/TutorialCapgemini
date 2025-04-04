@@ -1,33 +1,43 @@
 <div class="container">
-    <h1>Catálogo de juegos</h1>
-
+    <h1>Catálogo de Juegos</h1>
+  
+    <!-- 🔎 Filtros -->
     <div class="filters">
-        <form>
-            <mat-form-field>
-                <mat-label>Título del juego</mat-label>
-                <input type="text" matInput placeholder="Título del juego" [(ngModel)]="filterTitle" name="title">
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Categoría del juego</mat-label>
-                <mat-select disableRipple [(ngModel)]="filterCategory" name="category">
-                    <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>    
-        </form>
-
-        <div class="buttons">
-            <button mat-stroked-button (click)="onCleanFilter()">Limpiar</button> 
-            <button mat-stroked-button (click)="onSearch()">Filtrar</button> 
-        </div>   
-    </div>   
-
-    <div class="game-list">
-        <app-game-item *ngFor="let game of games; let i = index;" (click)="editGame(game)" [game]="game">
-        </app-game-item>
+      <!-- Título -->
+      <mat-form-field appearance="outline">
+        <mat-label>Título del juego</mat-label>
+        <input type="text" matInput placeholder="Título del juego" [(ngModel)]="filterTitle" name="title">
+      </mat-form-field>
+  
+      <!-- Categoría -->
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría del juego</mat-label>
+        <mat-select disableRipple [(ngModel)]="filterCategory" name="category">
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{ category.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Botones -->
+      <div class="buttons">
+        <button mat-flat-button color="primary" (click)="onSearch()">Filtrar</button>
+        <button mat-stroked-button color="warn" (click)="onCleanFilter()">Limpiar</button>
+      </div>
+  
+      <!-- Botón crear -->
+      <div class="create-button">
+        <button mat-flat-button color="accent" (click)="createGame()">Nuevo juego</button>
+      </div>
     </div>
-
-    <div class="buttons">
-        <button mat-flat-button color="primary" (click)="createGame()">Nuevo juego</button>            
-    </div>   
-</div>
+  
+    <!-- 🎮 Lista de juegos -->
+    <div class="game-list">
+      <app-game-item
+        *ngFor="let game of games; let i = index;"
+        (click)="editGame(game)"
+        [game]="game">
+      </app-game-item>
+    </div>
+  </div>
+  

@@ -1,0 +1,37 @@
+package com.ccsw.tutorial.loan;
+
+import com.ccsw.tutorial.loan.model.Loan;
+import org.springframework.data.jpa.domain.Specification;
+
+import java.time.LocalDate;
+
+public class LoanSpecification {
+
+    public static Specification<Loan> hasGame(Long gameId) {
+        return (root, query, builder) -> builder.equal(root.get("game").get("id"), gameId);
+    }
+
+    public static Specification<Loan> hasClient(Long clientId) {
+        return (root, query, builder) -> builder.equal(root.get("client").get("id"), clientId);
+    }
+
+    public static Specification<Loan> includesDate(LocalDate date) {
+        return (root, query, builder) -> builder.and(builder.lessThanOrEqualTo(root.get("startDate"), date), builder.greaterThanOrEqualTo(root.get("endDate"), date));
+    }
+
+    // ✅ Composición centralizada de filtros
+    public static Specification<Loan> buildSpecification(Long clientId, Long gameId, LocalDate date) {
+        Specification<Loan> spec = Specification.where(null);
+
+        if (clientId != null)
+            spec = spec.and(hasClient(clientId));
+
+        if (gameId != null)
+            spec = spec.and(hasGame(gameId));
+
+        if (date != null)
+            spec = spec.and(includesDate(date));
+
+        return spec;
+    }
+}
