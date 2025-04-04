@@ -7,12 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreModule } from './core/core.module';
 import { CategoryModule } from './category/category.module';
-
 import { AuthorModule } from './author/author.module';
 import { GameModule } from './game/game.module';
-
 import { ClientModule } from './client/client.module';
 import { LoanModule } from './loan/loan.module';
+
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,12 @@ import { LoanModule } from './loan/loan.module';
     GameModule,
     ClientModule,
     LoanModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule,   
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

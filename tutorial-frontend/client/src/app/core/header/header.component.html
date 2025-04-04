@@ -1,33 +1,41 @@
-<mat-toolbar>
+<mat-toolbar color="primary">
     <mat-toolbar-row>
-        <div class="header_container">
-            <div class="header_title">              
-                <mat-icon>storefront</mat-icon> Ludoteca Tan
-            </div>
-
-            <div class="header_separator"> | </div>
-
-            <div class="header_menu">
-                <div class="header_button">
-                    <a routerLink="/games" routerLinkActive="active">Catálogo</a>
-                </div>
-                <div class="header_button">
-                    <a routerLink="/categories" routerLinkActive="active">Categorías</a>
-                </div>
-                <div class="header_button">
-                    <a routerLink="/authors" routerLinkActive="active">Autores</a>
-                </div>
-                <div class="header_button">
-                    <a routerLink="/clients" routerLinkActive="active">Clientes</a>
-                </div>
-                <div class="header_button">
-                    <a routerLink="/loans" routerLinkActive="active">Prestamos</a>
-                </div>
-            </div>
-
-            <div class="header_login">
-                <mat-icon>account_circle</mat-icon> Sign in
-            </div>
+      <div class="header_container">
+        
+        <!-- Logo y título -->
+        <div class="header_title">
+          <mat-icon aria-hidden="false" aria-label="Ludoteca icon">storefront</mat-icon>
+          <span>Ludoteca Tán</span>
         </div>
+  
+        <!-- Separador visual -->
+        <div class="header_separator">|</div>
+  
+        <!-- Menú de navegación -->
+        <div class="header_menu">
+          <div class="header_button">
+            <a routerLink="/games" routerLinkActive="active">Catálogo</a>
+          </div>
+          <div class="header_button">
+            <a routerLink="/categories" routerLinkActive="active">Categorías</a>
+          </div>
+          <div class="header_button">
+            <a routerLink="/authors" routerLinkActive="active">Autores</a>
+          </div>
+          <div class="header_button">
+            <a routerLink="/clients" routerLinkActive="active">Clientes</a>
+          </div>
+          <div class="header_button">
+            <a routerLink="/loans" routerLinkActive="active">Préstamos</a>
+          </div>
+        </div>
+  
+        <!-- Botón de login -->
+        <div class="header_login">
+          <button mat-raised-button color="accent" (click)="openLoginDialog()">Iniciar sesión</button>
+        </div>
+        
+      </div>
     </mat-toolbar-row>
-</mat-toolbar>
+  </mat-toolbar>
+  
