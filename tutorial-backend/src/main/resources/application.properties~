@@ -8,6 +8,7 @@ spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.jpa.defer-datasource-initialization=true
 spring.jpa.show-sql=true
 spring.h2.console.enabled=true
+
 # JWT Configuration
 jwt.secret=mi_clave_ultra_secreta_123456789012345678901234
 jwt.expiration=3600

@@ -30,10 +30,9 @@
           </div>
         </div>
   
-        <!-- Botón de login -->
-        <div class="header_login">
-          <button mat-raised-button color="accent" (click)="openLoginDialog()">Iniciar sesión</button>
-        </div>
+        <button *ngIf="!isAuthenticated" (click)="openLoginDialog()">Iniciar sesión</button>
+        <button *ngIf="isAuthenticated" (click)="logout()">Cerrar sesión</button>
+
         
       </div>
     </mat-toolbar-row>

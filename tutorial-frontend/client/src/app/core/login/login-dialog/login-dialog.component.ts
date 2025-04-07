@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { DialogSuccessComponent } from 'src/app/core/dialog-success/dialog-success.component';
 
 @Component({
@@ -13,21 +14,24 @@ export class LoginDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<LoginDialogComponent>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   onLogin(): void {
-    if (this.username === 'admin' && this.password === 'admin') {
-      this.dialogRef.close();
-      this.dialog.open(DialogSuccessComponent, {
-        data: { message: 'Inicio de sesión exitoso.' }
-      });
-    } else {
-      this.dialog.open(DialogSuccessComponent, {
-        data: { message: '❌ Usuario o contraseña incorrectos.' }
-      });
-      
-    }
+    this.authService.login(this.username, this.password).subscribe({
+      next: () => {
+        this.dialogRef.close();
+        this.dialog.open(DialogSuccessComponent, {
+          data: { message: '✅ Inicio de sesión exitoso.' }
+        });
+      },
+      error: () => {
+        this.dialog.open(DialogSuccessComponent, {
+          data: { message: '❌ Usuario o contraseña incorrectos.' }
+        });
+      }
+    });
   }
 
   onCancel(): void {

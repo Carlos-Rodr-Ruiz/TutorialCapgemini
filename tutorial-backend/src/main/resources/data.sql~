@@ -4,6 +4,7 @@
 --DELETE FROM client;
 --DELETE FROM author;
 --DELETE FROM category;
+INSERT INTO user(username, password, role) VALUES ('admin', 'admin', 'ADMIN');
 -- 🌱 Categorías
 INSERT INTO category(name) VALUES ('Eurogames');
 INSERT INTO category(name) VALUES ('Ameritrash');

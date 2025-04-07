@@ -1,0 +1,209 @@
+[33mcommit cfb855a92f73226c00faf068d2a4a653ed1901b7[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mlogin[m[33m, [m[1;31morigin/login[m[33m)[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Fri Apr 4 12:08:53 2025 +0200
+
+    interfaz login
+
+[33mcommit 2e219784dac2edf99a5a23bde0d2f67d6c90bb61[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Fri Apr 4 11:32:01 2025 +0200
+
+    rama main actualizada con todo el tutorial excapto el login
+
+[33mcommit 9d863e9dea1a2907cc7cd23a8612c4f061c34ce9[m
+Merge: adf8127 e2b2d50
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Fri Apr 4 11:27:07 2025 +0200
+
+    Merge branch 'backend-ahora-tu'
+
+[33mcommit adf81279f9a3de0ceed47cd838ca6e39d804af09[m
+Merge: 1cff9c8 9624b2e
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Fri Apr 4 11:26:35 2025 +0200
+
+    Merge branch 'main' of https://github.com/Carlos-Rodr-Ruiz/TutorialPracticasCapgemini
+
+[33mcommit e2b2d507752022c5b12338592edf3325616abc4a[m[33m ([m[1;31morigin/backend-ahora-tu[m[33m, [m[1;32mbackend-ahora-tu[m[33m)[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Fri Apr 4 11:24:30 2025 +0200
+
+    Tutorial completado, falta inicio de sesion
+
+[33mcommit 70ac24b1e220f25c0ef1e887bb1fd008f6944284[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Apr 3 01:28:04 2025 +0200
+
+    falta alta de prestamos, no se que pasaaaaaaadnkdbabda
+
+[33mcommit 4451a7f0219f29b9e3ca54242c35db04deccd1d4[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Tue Apr 1 19:53:02 2025 +0200
+
+    Tutorial casi completado, arreglados bugs de filtrado pagiado en loan y cosillas en otras clases
+
+[33mcommit 340301f611c351903e507ced6aeb5b67571435be[m
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Apr 1 15:09:16 2025 +0200
+
+    Prestamo filtrado bugs
+
+[33mcommit 620e644718853a0dea114de0a6bcdaa886775637[m
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Apr 1 09:39:56 2025 +0200
+
+    mas cosillas
+
+[33mcommit d3a73707fefa3c40d4b6f2c1d47939c006881dcb[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Tue Apr 1 01:02:50 2025 +0200
+
+    Prestamo casi completado
+
+[33mcommit 91274a8d631be9c9cb8dbd43db12168055d7020a[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 27 16:42:00 2025 +0100
+
+    cliente completado
+
+[33mcommit e5777678f1aca7d1ebe7f2f8edef50558f020022[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 27 14:09:10 2025 +0100
+
+    Cliente completado
+
+[33mcommit 1cff9c884f9cb1ad547412abb24e30a6653932b7[m[33m ([m[1;32mfrontend-ahora-tu[m[33m)[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 27 11:30:52 2025 +0100
+
+    eliminar carpeta no necesaria
+
+[33mcommit 9624b2ee923342aedb96b18e8181681e4b6b3254[m[33m ([m[1;31morigin/frontend-ahora-tu[m[33m)[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 27 11:30:52 2025 +0100
+
+    eliminar carpeta no necesaria
+
+[33mcommit 6b88a172cddb0e0d626c28dc51e63f7e802aba5d[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 27 11:29:19 2025 +0100
+
+    Botones de editar y eliminar arreglados
+
+[33mcommit 4806d92dabbdc1d25e94ecaa49b206e134f9af93[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 27 11:29:19 2025 +0100
+
+    Botones de editar y eliminar arreglados
+
+[33mcommit cd9ea858d150dd7cf2f5258a2a88288daad6534d[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 14:35:39 2025 +0100
+
+    cosillas
+
+[33mcommit 200cfead43857ed228975b5e68a42a1772ae450d[m
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 14:35:39 2025 +0100
+
+    cosillas
+
+[33mcommit 190d466a137a830c1f9257fb46b96a2345b1524a[m
+Merge: db1372d 6ab22d8
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 14:31:58 2025 +0100
+
+    Merge branch 'frontend'
+
+[33mcommit d459cdd59643d2cc25cb8803279e2e1e28641f9c[m
+Merge: 5973be6 6ab22d8
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 14:31:58 2025 +0100
+
+    Merge branch 'frontend'
+
+[33mcommit db1372d0a83445b6bee3f7f306af98e628443651[m
+Merge: 1e93190 1c65bd2
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 14:27:40 2025 +0100
+
+    Merge branch 'backend'
+
+[33mcommit 5973be6d41f4eafbfe9262d244efdb8e9450f473[m
+Merge: e92e6f7 1c65bd2
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 14:27:40 2025 +0100
+
+    Merge branch 'backend'
+
+[33mcommit 6ab22d82ff22ea9fdc6109b0f65904755c081fd3[m[33m ([m[1;31morigin/frontend[m[33m)[m
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 14:16:51 2025 +0100
+
+    cosillas de estilo
+
+[33mcommit 7f57c5337e95de167b634be5cd4d4380b1b176ab[m
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 14:04:20 2025 +0100
+
+    Code:Listado filtrado-Completado
+
+[33mcommit c08204bf62e17aa59ec3e1baf94b08dfea836c94[m
+Author: Rodriguez Ruiz external <carlos.rodriguez-ruiz.external@capgemini.com>
+Date:   Tue Mar 25 13:26:32 2025 +0100
+
+    Code: Listado paginado-Completado
+
+[33mcommit 35d26c954e251c115740cc335a8f2538867640c2[m[33m ([m[1;32mfrontend[m[33m)[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Mon Mar 24 20:33:25 2025 +0100
+
+    Code: Listado simple-Completado
+
+[33mcommit 1c65bd222df57ac1b4c97be836d784f7e1b43d85[m[33m ([m[1;31morigin/backend[m[33m, [m[1;32mbackend[m[33m)[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 20 21:07:29 2025 +0100
+
+    Code:Listado filtrado-Completado
+
+[33mcommit ed81347cdf484a008d2b5829040dff4007e2fe9b[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 20 18:28:59 2025 +0100
+
+    Code:Listado paginado-Completado
+
+[33mcommit f0fb7179c4c0e786c847350a0ce341ad4309cdef[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 20 17:45:35 2025 +0100
+
+    Code:Listado simple-Completado
+
+[33mcommit 76fb2dedf660edc7d9d518e8b4ba9b3449ebce15[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 20 16:06:35 2025 +0100
+
+    Entorno de desarrollo-Completado
+
+[33mcommit cbf478ea95397700370f6fc40e767f8c490775c7[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 20 15:04:30 2025 +0100
+
+    CommitPrueba
+
+[33mcommit 4b2d00fefd392d50cd1973e52cfddcf0fbca387e[m
+Author: Carlos-Rodr-Ruiz <programmercarlos@gmail.com>
+Date:   Thu Mar 20 14:42:54 2025 +0100
+
+    Inicio del backend - estructura inicial
+
+[33mcommit 1e93190ea15b4009c1a306d5df60e6d47cb1e500[m
+Author: Carlos-Rodr-Ruiz <128075086+Carlos-Rodr-Ruiz@users.noreply.github.com>
+Date:   Thu Mar 20 14:30:02 2025 +0100
+
+    Initial commit
+
+[33mcommit e92e6f7c0359a2a8c03455a3af4793a0a452168c[m
+Author: Carlos-Rodr-Ruiz <128075086+Carlos-Rodr-Ruiz@users.noreply.github.com>
+Date:   Thu Mar 20 14:30:02 2025 +0100
+
+    Initial commit

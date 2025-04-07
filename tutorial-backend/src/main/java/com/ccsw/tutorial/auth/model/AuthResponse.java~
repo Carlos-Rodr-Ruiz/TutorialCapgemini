@@ -1,0 +1,4 @@
+package com.ccsw.tutorial.auth.model;
+
+public class AuthResponse {
+}

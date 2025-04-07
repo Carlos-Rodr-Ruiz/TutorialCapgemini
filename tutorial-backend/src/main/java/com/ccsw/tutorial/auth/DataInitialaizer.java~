@@ -1,0 +1,26 @@
+package com.ccsw.tutorial.auth;
+
+import com.ccsw.tutorial.auth.model.User;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@Configuration
+public class DataInitialaizer {
+
+    @Bean
+    CommandLineRunner initDatabase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        return args -> {
+            if (userRepository.findByUsername("admin") == null) {
+                User user = new User();
+                user.setUsername("admin");
+                user.setPassword(passwordEncoder.encode("admin"));
+                user.setRole("ROLE_ADMIN");
+
+                userRepository.save(user);
+                System.out.println("✅ Usuario admin creado en la base de datos en memoria.");
+            }
+        };
+    }
+}

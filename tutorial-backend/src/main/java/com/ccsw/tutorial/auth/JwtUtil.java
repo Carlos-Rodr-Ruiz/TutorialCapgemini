@@ -1,0 +1,91 @@
+package com.ccsw.tutorial.auth;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+@Component
+public class JwtUtil {
+
+    // Clave secreta para firmar el token
+    @Value("${jwt.secret}")
+    private String secret;
+
+    // Tiempo de expiración en segundos de la clave
+    @Value("${jwt.expiration}")
+    private long expiration;
+
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        // Se transforma la clave a un formato valido para firmar
+        this.key = Keys.hmacShaKeyFor(secret.getBytes());
+    }
+
+    /**
+     * Genera un token JWT con username
+     */
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        // Guardamos roles en el token
+        claims.put("roles", userDetails.getAuthorities());
+        return createToken(claims, userDetails.getUsername());
+    }
+
+    /**
+     * @param claims
+     * @param subject
+     * @return token con firma, expiración y claims
+     */
+    private String createToken(Map<String, Object> claims, String subject) {
+        Date now = new Date();
+        Date expiry = new Date(now.getTime() + expiration * 1000); // en milisegundos
+
+        //Este es eltoken que guardaremos en ssesionStorage en el front
+        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(now).setExpiration(expiry).signWith(key, SignatureAlgorithm.HS256).compact();
+    }
+
+    /**
+     * @param token
+     * @return nombre de usuario del token
+     */
+    public String extractUsername(String token) {
+        return extractAllClaims(token).getSubject();
+    }
+
+    /**
+     *
+     * @param token
+     * @param userDetails
+     * @return true si el token es valido
+     */
+    public boolean validateToken(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    }
+
+    private boolean isTokenExpired(String token) {
+        final Date expiration = extractAllClaims(token).getExpiration();
+        return expiration.before(new Date());
+    }
+
+    /**
+     * Este método "descompone" el token JWT y devuelve su contenido completo
+     * @param token
+     * @return
+     */
+    private Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(token).getBody();
+    }
+}
