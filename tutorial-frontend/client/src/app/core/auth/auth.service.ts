@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' //Servicio disponible en toda la aplicación
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth/login';  // URL del backend para login
+  private apiUrl = 'http://localhost:8080/auth/login';  //URL del backend para login
   private tokenKey = 'authToken';  // Clave para guardar el token en sessionStorage
 
   constructor(private http: HttpClient) {}
@@ -52,6 +52,6 @@ export class AuthService {
    * Comprueba si el usuario está autenticado
    */
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    return this.getToken() !== null;
   }
 }
