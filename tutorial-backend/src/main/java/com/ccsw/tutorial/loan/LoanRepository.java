@@ -18,11 +18,11 @@ public interface LoanRepository extends JpaRepository<Loan, Long>, org.springfra
     @EntityGraph(attributePaths = { "client", "game" })
     Page<Loan> findAll(Specification<Loan> spec, Pageable pageable);
 
-    // ➕ Validación: evitar préstamos solapados por juego
+    //Validación: evitar préstamos solapados por juego
     @Query("SELECT l FROM Loan l WHERE l.game.id = :gameId AND :startDate <= l.endDate AND :endDate >= l.startDate")
     List<Loan> findByGameIdAndDateOverlap(@Param("gameId") Long gameId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-    // ➕ Validación: evitar más de 2 préstamos al mismo cliente en el mismo periodo
+    //Validación: evitar más de 2 préstamos al mismo cliente en el mismo periodo
     @Query("SELECT l FROM Loan l WHERE l.client.id = :clientId AND :startDate <= l.endDate AND :endDate >= l.startDate")
     List<Loan> findByClientIdAndDateOverlap(@Param("clientId") Long clientId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

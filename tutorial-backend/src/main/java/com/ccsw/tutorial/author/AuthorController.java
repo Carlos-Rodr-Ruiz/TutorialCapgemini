@@ -31,21 +31,6 @@ public class AuthorController {
     ModelMapper mapper;
 
     /**
-     * Método para recuperar un listado paginado de {@link Author}
-     *
-     * @param dto dto de búsqueda
-     * @return {@link Page} de {@link AuthorDto}
-     */
-    @Operation(summary = "Find Page", description = "Method that return a page of Authors")
-    @RequestMapping(path = "", method = RequestMethod.POST)
-    public Page<AuthorDto> findPage(@RequestBody AuthorSearchDto dto) {
-
-        Page<Author> page = this.authorService.findPage(dto);
-
-        return new PageImpl<>(page.getContent().stream().map(e -> mapper.map(e, AuthorDto.class)).collect(Collectors.toList()), page.getPageable(), page.getTotalElements());
-    }
-
-    /**
      * Método para crear o actualizar un {@link Author}
      *
      * @param id PK de la entidad
@@ -68,6 +53,21 @@ public class AuthorController {
     public void delete(@PathVariable("id") Long id) throws Exception {
 
         this.authorService.delete(id);
+    }
+
+    /**
+     * Método para recuperar un listado paginado de {@link Author}
+     *
+     * @param dto dto de búsqueda
+     * @return {@link Page} de {@link AuthorDto}
+     */
+    @Operation(summary = "Find Page", description = "Method that return a page of Authors")
+    @RequestMapping(path = "", method = RequestMethod.POST)
+    public Page<AuthorDto> findPage(@RequestBody AuthorSearchDto dto) {
+
+        Page<Author> page = this.authorService.findPage(dto);
+
+        return new PageImpl<>(page.getContent().stream().map(e -> mapper.map(e, AuthorDto.class)).collect(Collectors.toList()), page.getPageable(), page.getTotalElements());
     }
 
     /**

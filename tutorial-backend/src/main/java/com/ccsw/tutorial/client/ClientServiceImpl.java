@@ -26,7 +26,6 @@ public class ClientServiceImpl implements ClientService {
         Client client;
 
         if (data.getId() == null) {
-            // Crear nuevo cliente
             client = new Client();
         } else {
             // Editar cliente existente

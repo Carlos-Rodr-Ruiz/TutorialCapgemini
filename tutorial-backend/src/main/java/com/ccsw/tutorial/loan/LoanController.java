@@ -28,7 +28,7 @@ public class LoanController {
     ModelMapper mapper;
 
     /**
-     * Método para obtener una lista paginada de préstamos
+     * Método para obtener una lista paginada de préstamos y con filtros también
      */
     @Operation(summary = "Find Page", description = "Returns a paginated list of loans with optional filters")
     @PostMapping("")
@@ -37,7 +37,7 @@ public class LoanController {
     }
 
     /**
-     * Nuevo método sin paginación, como en catálogo
+     * Nuevo método sin paginación, como en catálogo, lo hice al principio para que me fuera mas sencillo
      */
     @Operation(summary = "Find all (filtered)", description = "Returns all loans with optional filters")
     @GetMapping("/filtered")

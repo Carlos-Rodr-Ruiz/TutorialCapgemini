@@ -17,7 +17,6 @@ public class DataInitializer {
 
     @PostConstruct
     public void initDatabase() {
-        // Verifica si ya existe un usuario con el nombre admin
         if (userRepository.findByUsername("admin") == null) {
             User user = new User();
             user.setUsername("admin");

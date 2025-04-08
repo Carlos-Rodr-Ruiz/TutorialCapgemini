@@ -41,7 +41,7 @@ public class LoanServiceImpl implements LoanService {
 
     /**
      * Recupera todos los préstamos existentes en la base de datos.
-     *      //Lo utilize para pruebas en postman
+     *      //Lo utilize para pruebas con postman
      * @return Lista completa de préstamos
      */
     @Override
@@ -77,7 +77,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     /**
-     * Recupera todos los préstamos que coincidan con los filtros, sin paginación.
+     * Recupera todos los préstamos que coincidan con los filtros, sin paginación
      *
      * @param clientId ID del cliente
      * @param gameId   ID del juego
@@ -91,8 +91,8 @@ public class LoanServiceImpl implements LoanService {
     }
 
     /**
-     * Crea o actualiza un préstamo en base a los datos proporcionados.
-     * Realiza validaciones de solapamientos, duración máxima y cantidad de préstamos por cliente.
+     * Crea o actualiza un préstamo en base a los datos proporcionados
+     * Realiza validaciones de solapamientos, duración máxima y cantidad de préstamos por cliente
      *
      * @param dto Objeto DTO con los datos del préstamo
      * @throws ResponseStatusException si alguna validación no se cumple
@@ -160,7 +160,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     /**
-     * Elimina un préstamo por su ID.
+     * Elimina un préstamo por su ID
      *
      * @param id Identificador del préstamo a eliminar
      */
@@ -170,7 +170,7 @@ public class LoanServiceImpl implements LoanService {
     }
 
     /**
-     * Convierte una entidad Loan a su DTO correspondiente.
+     * Convierte una entidad Loan a su DTO correspondiente
      *
      * @param entity Entidad Loan
      * @return DTO con los datos del préstamo
