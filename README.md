@@ -18,10 +18,13 @@ git clone origin https://github.com/Carlos-Rodr-Ruiz/TutorialCapgemini.git
 
 ### Funcionalidades realizadas
 
-**Módulo**	                               **Estado**
-Login	                          ✅         Terminado
-Gestión de clientes	            ✅         Terminado
-Gestión de juegos	              ✅         Terminado
-Gestión de préstamos	          ✅         Terminado
-Seguridad JWT	                  ✅         Terminado
-Interfaz pulida y perfeccionada 🛠️         Sin terminar
+| **Módulo**                    | **Estado**          |
+|-------------------------------|---------------------|
+| Login                         | ✅ Terminado        |
+| Gestión de clientes           | ✅ Terminado        |
+| Gestión de juegos             | ✅ Terminado        |
+| Gestión de categorias         | ✅ Terminado        |
+| Gestión de préstamos          | ✅ Terminado        |
+| Seguridad JWT                 | ✅ Terminado        |
+| Interfaz pulida y perfeccionada | 🛠️ Sin terminar   |
+
