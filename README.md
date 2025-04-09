@@ -1,4 +1,4 @@
-# 📚 TutorialCapgemini  
+# 📚 Tutorial
 Proyecto de práctica desarrollado en el tanto en Spring Boot + Angular con autenticación JWT. Incluye backend y frontend conectados, con funcionalidades completas de gestión de préstamos, clientes, juegos, autores y categorías.  
 
 ## 🔧 Tecnologías usadas  
