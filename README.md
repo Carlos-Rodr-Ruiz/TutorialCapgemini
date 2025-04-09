@@ -9,7 +9,7 @@ Proyecto de práctica desarrollado en el tanto en Spring Boot + Angular con aute
 - 📦 **Maven**  
 
 ## ⚙️ Instalación del proyecto  
-git clone origin https://github.com/Carlos-Rodr-Ruiz/TutorialCapgemini.git
+git clone https://github.com/Carlos-Rodr-Ruiz/TutorialLudoteca_CarlosRodriguezRuiz.git
 
 ### 🔙 Backend  
 - run TutorialApplication
